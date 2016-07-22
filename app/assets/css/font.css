@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'Open Sans';
+    src: url("../fonts/opensans/OpenSans-Regular.ttf") format("ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url("../fonts/opensans/OpenSans-Italic.ttf") format("ttf");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url("../fonts/opensans/OpenSans-Light.ttf") format("ttf");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url("../fonts/opensans/OpenSans-Semibold.ttf") format("ttf");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url("../fonts/opensans/OpenSans-Bold.ttf") format("ttf");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url("../fonts/opensans/OpenSans-Extrabold.ttf") format("ttf");
+    font-weight: 800;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Raleway';
+    src: url("../fonts/raleway/Ralweay-Thin.ttf") format("ttf");
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url("../fonts/raleway/Ralweay-Light.ttf") format("ttf");
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url("../fonts/raleway/Ralweay-Regular.ttf") format("ttf");
+    font-weight: 300;
+    font-style: normal;
+}
