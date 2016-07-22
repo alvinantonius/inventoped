@@ -8,14 +8,15 @@ var app = angular.module('Controllers', [
 
 
 $(document).ready(function() {
+    
     // cek dulu udah login apa belum
     // kalo belum, lempar ke halaman login
     // window.location.href = "login.html";
     
-    var shell = require('electron').shell;
+    // var shell = require('electron').shell;
     //open links externally by default
-    $(document).on('click', 'a[href^="http"]', function(event) {
-        event.preventDefault();
-        shell.openExternal(this.href);
-    });
+    // $(document).on('click', 'a[href^="http"]', function(event) {
+    //     event.preventDefault();
+    //     shell.openExternal(this.href);
+    // });
 });
