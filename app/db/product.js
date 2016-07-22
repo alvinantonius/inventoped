@@ -1,7 +1,7 @@
 var db = require("./connection");
 
 var ProdManager = {
-  createProd: function(product){
+  CreateProd: function(product){
   	var upd_time = new Date();
   	var field = "p_id, shop_id, product_name, " + 
   		"product_code, product_status, use_stock, " + 
