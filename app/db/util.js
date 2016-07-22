@@ -1,7 +1,7 @@
 var db = require("./connection");
 
 var UtilManager = {
-  createProd: function(util){
+  CreateUtil: function(util){
     var field  = "key, value";
     var values = "'"+util.key+"','"+util.value+"'";
 
@@ -9,10 +9,15 @@ var UtilManager = {
     stmt.run();
     stmt.finalize();
   },
-  UpdateProd: function(util){
+  UpdateUtil: function(util){
     var values = "value='"+util.value+"'";
     var where  = "key='"+util.key+"'";
 
+    var stmt = db.prepare("UPDATE product SET "+values+" WHERE "+where);
+    stmt.run();
+    stmt.finalize();
+  },
+  GetUtil : function(key){
     var stmt = db.prepare("UPDATE product SET "+values+" WHERE "+where);
     stmt.run();
     stmt.finalize();
