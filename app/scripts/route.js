@@ -5,6 +5,7 @@ app.config(function($routeProvider, $locationProvider) {
         templateUrl:"views/home.html",
         controller :"HomeController"
     })
+    
 
     .when('/inventory/tambah_produk', {
         templateUrl:"views/inventory/tambah-produk.html",

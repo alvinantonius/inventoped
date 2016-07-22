@@ -26,11 +26,11 @@ app.on('ready', function () {
     setApplicationMenu();
 
     var mainWindow = createWindow('main', {
-        width: 1000,
+        width: 1200,
         height: 600
     });
 
-    mainWindow.loadURL('file://' + __dirname + '/app.html');
+    mainWindow.loadURL('file://' + __dirname + '/index.html');
 
     if (env.name !== 'production') {
         mainWindow.openDevTools();
