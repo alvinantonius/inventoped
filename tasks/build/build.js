@@ -22,6 +22,8 @@ var paths = {
         './node_modules/**',
         './helpers/**',
         './**/*.html',
+        './assets/**',
+        './scripts/**',
         './**/*.+(jpg|png|svg)'
     ],
 };

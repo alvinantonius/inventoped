@@ -9,4 +9,6 @@ app.controller('ManageProductController', function($scope){
       checkboxClass: 'icheckbox_flat-green',
       radioClass: 'iradio_flat-green'
     });
+    
+    $("[data-toggle='tooltip']").tooltip();
 });
