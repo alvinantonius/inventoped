@@ -7,6 +7,7 @@ app.controller('LoginController', ['$scope', 'LoginFactory', function($scope, Lo
     $scope.doLogin = function(){
         LoginFactory.get_shop_id($scope.email).success(function(data, status){
             if(data.data.shop_id){
+                console.log(data.data);
                 var shop_id = data.data.shop_id;
                 var user_id = data.data.user_id;
                 LoginFactory.get_shop_info(data.data.shop_id).success(function(data, status){
@@ -29,7 +30,10 @@ app.controller('LoginController', ['$scope', 'LoginFactory', function($scope, Lo
                    }                   
                    UtilManager.UpdateUtil(util_user_id);
                    
-                   window.location.href = "index.html";
+                   
+                    setTimeout(function(){
+                        window.location.href = "index.html";  
+                    }, 1000);
                    
                 });
             } else {

@@ -11,11 +11,15 @@ $(document).ready(function() {
     
     // cek dulu udah login apa belum
     // kalo belum, lempar ke halaman login
-    var shop_id = UtilManager.GetUtil('shop_id');
-    console.log(shop_id);
-    if(!(shop_id > 0)){
-        // window.location.href = "login.html";
-    }
+    
+    dbInv.get("select * from util where key='shop_id'", function(err, row){
+        var shop_id = row.value;
+        
+        if(!(shop_id > 0)){
+            window.location.href = "login.html";
+        }
+    });
+        
     
     var shell = require('electron').shell;
     // open links externally by default
