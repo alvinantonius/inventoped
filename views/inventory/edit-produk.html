@@ -1,0 +1,266 @@
+<div class="cl-mcont">
+        
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <div class="block-flat">
+        <div class="header">              
+          <h3>Product Detail</h3>
+        </div>
+        <div class="content">
+
+          <form action="http://bengkelkreatif.com/inventoped/new-product.html#" parsley-validate="" novalidate=""> 
+            <div class="form-group">
+              <label>Product Image</label>
+              <div>
+                <div class="gallery-cont">
+                  <div class="row">
+                    
+                    <div class="item col-sm-3" ng-repeat="img in product.image track by $index">
+                      <div class="photo">
+                        <div>
+                          <span class="pull-right"> <i class="fa fa-times"></i> </span>
+                        </div>
+                        <div class="img">
+                          <img ng-src="{{img.url}}" />
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <button type="button" class="btn btn-default" id="browse-image-button"><i class="fa fa-fw fa-desktop fa-2x"></i></button>  
+                    <input type="file" style="display:none" id="browse-image">
+                  </div> 
+                  <div class="col-md-10">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Upload from URL" id="pic-url">
+                      <span class="input-group-btn">
+                      <button class="btn btn-primary" type="button" id="upload-from-url">Upload</button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+            <div class="form-group">
+              <label>Product Name*</label> <input type="text" name="nick" ng-model="product.product_name" parsley-trigger="change" required="" placeholder="Product Name" class="form-control">
+            </div>
+      
+            <div class="form-group">
+                <label class="control-label" style="margin-right:10px;">Stock</label>
+                <div class="switch switch-small">
+                    <input type="checkbox" checked ng-model="product.use_stock">
+                </div>
+            
+        <input type="text" ng-model="product.stock" name="nick" parsley-trigger="change" required="" placeholder="Stock info" class="form-control"><!--disabled="disabled"-->
+      </div>
+        
+      <div class="form-group"> 
+              <label>Price*</label>
+                <div class="input-group">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-flat dropdown-toggle" data-toggle="dropdown">
+          Rp <span class="caret"></span>
+          </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>Rp</li>
+                      <li>$</li>
+                    </ul>
+                  </span>
+         
+                  <input type="text" class="form-control" placeholder="Price" ng-model="product.price">
+                </div>
+            </div> 
+      
+            <div class="form-group"> 
+              <label>Weight*</label>
+        <div class="input-group">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-flat dropdown-toggle" data-toggle="dropdown">
+          Gram <span class="caret"></span>
+          </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>Gram</li>
+                      <li>Kilogram</li>
+                    </ul>
+                  </span>
+         
+                  <input type="text" class="form-control" placeholder="Weight" ng-model="product.weight">
+                </div>
+            </div>
+      
+            <div class="form-group">
+                <label>Condition*</label>
+                <div>
+                  <label class="radio-inline"> <input class="icheck" type="radio" checked="" name="rad1"> New</label> 
+                  <label class="radio-inline"> <input class="icheck" type="radio" checked="" name="rad1"> Used</label> 
+                </div>
+            </div>
+                
+            <div class="content">
+              <label>Product Description*</label>
+              <textarea ng-model="product.description" style="height:150px;" class="form-control" id="textarea" placeholder="Explain About Your Product"></textarea>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+          
+
+
+    <div class="col-sm-12 col-md-6">
+      <div class="block-flat">
+        <div class="header">              
+          <h3>Additional Info</h3>
+        </div>
+          <div class="content">
+            <form action="http://bengkelkreatif.com/inventoped/new-product.html#" parsley-validate="" novalidate=""> 
+        <div class="form-group">
+          <label>Status*</label>
+          <div>
+            <select class="form-control" ng-model="product.status">
+              <option value="1">Available</option>
+              <option value="3">Not Available</option>
+            </select> 
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Category*</label>
+          <div>
+            <select class="form-control" ng-model="product.category1">
+            <option>** Select Category</option>
+            <option>Sepatu</option>
+            <option>Baju</option>
+            <option>Unik</option>
+            <option>Rumah Tangga</option>
+            <option>** Tambah Etalase</option>
+            </select>                 
+          </div>
+          <div>
+            <select class="form-control" ng-model="product.category2">
+            <option>** Select Category</option>
+            <option>Sepatu</option>
+            <option>Baju</option>
+            <option>Unik</option>
+            <option>Rumah Tangga</option>
+            <option>** Tambah Etalase</option>
+            </select>                 
+          </div>
+          <div>
+            <select class="form-control" ng-model="product.category3">
+            <option>** Select Category</option>
+            <option>Sepatu</option>
+            <option>Baju</option>
+            <option>Unik</option>
+            <option>Rumah Tangga</option>
+            <option>** Tambah Etalase</option>
+            </select>                 
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Showcase*</label>
+          <div>
+            <select class="form-control" ng-model="product.menu_id">
+            <option>** Select Showcase</option>
+            <option>Sepatu</option>
+            <option>Baju</option>
+            <option>Unik</option>
+            <option>Rumah Tangga</option>
+            <option>** Add Showcase</option>
+            </select>                 
+          </div>
+          <div class="form-group">
+            <input id="pass1" type="" placeholder="Add new showcase" required="" class="form-control" ng-model="product.new_menu_name">                
+          </div>
+        </div>
+        <div class="form-group"> 
+          <label>Minimum Order / item*</label> <input ng-model="product.min_order" id="pass1" type="" placeholder="Insert minumum order" required="" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Insurance</label>
+          <div>
+            <label class="radio-inline"> <input ng-model="product.insurance" class="icheck" type="radio" checked="" name="rad1" value="0"> Optional</label> 
+            <label class="radio-inline"> <input ng-model="product.insurance" class="icheck" type="radio" checked="" name="rad1" value="1"> Yes</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Product returnable</label>
+          <div>
+            <select class="form-control" ng-model="product.returnable">
+            <option value="0">** Choose </option>
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+            </select>                 
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" style="margin-right:10px;">Preorder</label>
+          <div class="switch switch-small">
+            <input type="checkbox" checked>
+          </div>
+          <input type="text" name="nick" parsley-trigger="change" required="" placeholder="Insert processing time" class="form-control">        
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" style="margin-right:10px;">Wholesale Price</label>
+          <div class="switch switch-small">
+            <input type="checkbox" checked>
+          </div>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th class="text-center" width="10px"><b>Qty Min</b></th>
+              <th class="text-center" width="10px"><b>Qty Max</b></th>
+              <th class="text-center" width="10px"><b>Price</b></th>
+            </tr>
+            </thead>
+            
+            <tbody>
+            <tr>
+              <td class="center"><input ng-model="product.wholesale.qty_min1" type="range1" placeholder="Min" value="3" class="form-control text-right"></td>
+              <td class="center"><input ng-model="product.wholesale.qty_max1" type="range2" placeholder="Max" value="5" class="form-control text-right"></td>
+              <td class="center"><input ng-model="product.wholesale.price1" type="price" placeholder="Price" value="12.000" class="form-control text-right"></td>
+            </tr>
+            <tr>
+              <td class="center"><input ng-model="product.wholesale.qty_min2" type="range1" placeholder="Min" value="3" class="form-control text-right"></td>
+              <td class="center"><input ng-model="product.wholesale.qty_max2" type="range2" placeholder="Max" value="5" class="form-control text-right"></td>
+              <td class="center"><input ng-model="product.wholesale.price2" type="price" placeholder="Price" value="12.000" class="form-control text-right"></td>
+            </tr>
+            <tr>
+              <td class="center"><input ng-model="product.wholesale.qty_min3" type="range1" placeholder="Min" value="3" class="form-control text-right"></td>
+              <td class="center"><input ng-model="product.wholesale.qty_max3" type="range2" placeholder="Max" value="5" class="form-control text-right"></td>
+              <td class="center"><input ng-model="product.wholesale.price3" type="price" placeholder="Price" value="12.000" class="form-control text-right"></td>
+            </tr>
+            <tr>
+              <td class="center"><input ng-model="product.wholesale.qty_min4" type="range1" placeholder="Min" value="3" class="form-control text-right"></td>
+              <td class="center"><input ng-model="product.wholesale.qty_max4" type="range2" placeholder="Max" value="5" class="form-control text-right"></td>
+              <td class="center"><input ng-model="product.wholesale.price4" type="price" placeholder="Price" value="12.000" class="form-control text-right"></td>
+            </tr>
+            <tr>
+              <td class="center"><input ng-model="product.wholesale.qty_min5" type="range1" placeholder="Min" value="3" class="form-control text-right"></td>
+              <td class="center"><input ng-model="product.wholesale.qty_max5" type="range2" placeholder="Max" value="5" class="form-control text-right"></td>
+              <td class="center"><input ng-model="product.wholesale.price5" type="price" placeholder="Price" value="12.000" class="form-control text-right"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+            </form>
+          </div>
+        </div>        
+      </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <button class="btn btn-primary" type="submit" ng-click="edit_product()">Save</button>
+      <!-- <button class="btn btn-primary" ng-click="add_product(2)">Save dan Create New</button> -->
+      <button class="btn btn-default">Cancel</button>
+    </div>
+  </div>
+  
+        
+</div>
