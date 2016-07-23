@@ -42,7 +42,7 @@ app.controller('ManageProductController', function($scope) {
 				});
 			}
 
-	        $scope.product.edit_prod = '#/inventory/tambah_produk/edit/';
+	        $scope.product.edit_prod = '#/inventory/edit_produk/';
 	        $scope.product.copy_prod = '#/inventory/tambah_produk/copy/';
 			$scope.product.row       = nrow;
 			$scope.product.last_id   = last_p_id;

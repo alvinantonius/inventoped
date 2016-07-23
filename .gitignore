@@ -6,3 +6,5 @@ Thumbs.db
 /build/
 /releases/
 /tmp/
+db/inventoped.sqlite3
+/userimage/

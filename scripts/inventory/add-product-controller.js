@@ -72,9 +72,10 @@ app.controller('AddProductController', function($scope, SyncFactory){
             returnable          : $scope.product.returnable,
             min_order           : $scope.product.min_order,
             insurance           : $scope.product.insurance,
-            weight              : $scope.product.weigh,
+            weight              : $scope.product.weight,
             menu_id             : $scope.product.menu_id,
             description         : $scope.product.description,
+            stat_del            : 0
         };
         ProdManager.CreateProd(local_product);
         
@@ -99,7 +100,6 @@ app.controller('AddProductController', function($scope, SyncFactory){
                 
             });
             
-            console.log($scope.product);
             check_conn(function(status){
                if(status == 1) {
                 // send product data to server
@@ -144,7 +144,6 @@ app.controller('AddProductController', function($scope, SyncFactory){
         }
         
         SyncFactory.post_product(real_product).success(function(data, status){
-           console.log(data);
            var product_id = data.data.id;
            var servertime = data.server_time;
 
@@ -162,12 +161,28 @@ app.controller('AddProductController', function($scope, SyncFactory){
                 returnable          : $scope.product.returnable,
                 min_order           : $scope.product.min_order,
                 insurance           : $scope.product.insurance,
-                weight              : $scope.product.weigh,
+                weight              : $scope.product.weight,
                 menu_id             : $scope.product.menu_id,
                 description         : $scope.product.description,
+                stat_del            : 0
             };
             
+            
             ProdManager.UpdateProd(local_product);
+            
+            // insert last product id
+            var util_last_product_id =  {
+                key : "last_product_id",
+                value : product_id
+            }                   
+            UtilManager.UpdateUtil(util_last_product_id);
+            
+            // insert last sync product
+            var util_last_sync_product =  {
+                key : "last_sync_product",
+                value : servertime
+            }                   
+            UtilManager.UpdateUtil(util_last_sync_product);
             
             window.location.href = "#/";
         });

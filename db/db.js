@@ -11,7 +11,7 @@ var ProdManager = {
   		"weight, weight_unit, condition, " + 
   		"description, category_id, menu_id," + 
   		"min_order, insurance, returnable, " + 
-  		"synced, last_sync, update_time";
+  		"synced, last_sync, stat_del, update_time";
 
   	var values = "'"+product.p_id+"','"+product.shop_id+"','"+product.product_name+"','"+
   		product.product_code+"','"+product.product_status+"','"+product.use_stock+"','"+
@@ -19,7 +19,7 @@ var ProdManager = {
   		product.weight+"','"+product.weight_unit+"','"+product.condition+"','"+
   		product.description+"','"+product.category_id+"','"+product.menu_id+"','"+
   		product.min_order+"','"+product.insurance+"','"+product.returnable+"','"+
-  		product.synced+"','"+product.last_sync+"','"+upd_time+"'";
+  		product.synced+"','"+product.last_sync+"','"+product.stat_del+"','"+upd_time+"'";
 
     var stmt = dbInv.prepare("INSERT INTO product("+field+") VALUES ("+values+")");
 
@@ -37,7 +37,7 @@ var ProdManager = {
   		"', category_id='"+product.category_id+"', menu_id='"+product.menu_id+
   		"', min_order='"+product.min_order+"', insurance='"+product.insurance+
   		"', returnable='"+product.returnable+"', synced='"+product.synced+
-  		"', last_sync='"+product.last_sync+"', update_time='"+upd_time+"'";
+  		"', last_sync='"+product.last_sync+"', stat_del='"+product.stat_del+"', update_time='"+upd_time+"'";
 
   	var where = "local_p_id='"+product.local_p_id+"'";
     var stmt  = dbInv.prepare("UPDATE product SET "+values+" WHERE "+where);
@@ -73,7 +73,7 @@ var UtilManager = {
   },
   GetUtil : function(key){
   	if (key == undefined) {
-  		return dbInv.exec("select * from util");
+  		return dbInv.get("select * from util");
   	} else {
   		return dbInv.get("select * from util where key='"+key+"'");
   	}
