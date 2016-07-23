@@ -20,8 +20,15 @@ app.factory('SyncFactory', ['$http', function($http){
             return dat;
         },
         
-        get_accepted_order : function(shop_id, last){
-            
+        get_product : function(product_id){
+            dat = $http.get(server_tome+"/v1/product?product_id="+product_id);
+            return dat;
+        },
+        
+        get_accepted_order : function(shop_id, last_sync_order){
+            dat = $http.get(server_tome+"/v1/tx/products?shop_id="+shop_id+"&sync_time="+last_sync_product);
+            return dat;
         }
+        
     }
 }]);
