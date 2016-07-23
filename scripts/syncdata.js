@@ -76,8 +76,13 @@ app.factory('SyncFactory', ['$http', function($http){
             //     }
             // }
             // var parameter = JSON.stringify(product);
-            console.log(product);
+
             dat = $http.post(server_products+"/v1/product", product)
+            return dat;
+        },
+        
+        update_product : function(product_id, product){
+            dat = $http.patch(server_products+"/v1/product/"+product_id, product)
             return dat;
         }
         
