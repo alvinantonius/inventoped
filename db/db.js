@@ -73,7 +73,7 @@ var UtilManager = {
   },
   GetUtil : function(key){
   	if (key == undefined) {
-  		return dbInv.exec("select * from util");
+  		return dbInv.get("select * from util");
   	} else {
   		return dbInv.get("select * from util where key='"+key+"'");
   	}
