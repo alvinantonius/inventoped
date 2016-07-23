@@ -1,4 +1,4 @@
-var app = angular.module("invtpd", ["ngRoute", "Controllers", "AddProductController"]);
+var app = angular.module("invtpd", ["ngRoute", "Controllers", "AddProductController", "EditProductController"]);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider.when('/', {
