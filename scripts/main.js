@@ -1,11 +1,14 @@
 var fs          = require('fs');
 var remote      = require('remote'); 
 var dialog      = remote.require('dialog'); 
-// var nodeRequest = require('request');
+var restler     = require('restler');
 
-var base_path = __dirname;
-var shop_id   = 0;
-var user_id   = 0;
+var base_path   = __dirname;
+var shop_id     = 0;
+var user_id     = 0;
+var upd_prod_id = 0;;
+var upd_sync    = 20010101010101;;
+
 var last_id;
 var last_sync;
 
@@ -18,6 +21,12 @@ var app = angular.module('Controllers', [
 ]);
 
 app.controller('SyncController', function($scope, SyncFactory) { 
+    $scope.product = new Object();
+
+    setInterval(function(){ 
+        $scope.$apply();
+    }, 500);
+
     $scope.sync_product = function(){
         dbInv.get("select value from util where key='shop_id'", function(err, row_util){
             shop_id = row_util.value;
@@ -30,6 +39,7 @@ app.controller('SyncController', function($scope, SyncFactory) {
 
                         SyncFactory.get_all_new_product(shop_id, last_id, last_sync).success(function(list_prod){
                             var list = list_prod.data;
+                            upd_sync = list_prod.server_time;
 
                             if(list.product_list) {
                                 $.each(list.product_list, function(index, value){
@@ -58,15 +68,19 @@ app.controller('SyncController', function($scope, SyncFactory) {
                                         product.returnable     = '';
                                         product.synced         = 1;
                                         product.last_sync      = prod.server_time;
+                                        product.stat_del       = 0;
 
                                         ProdManager.CreateProd(product);
                                     });
+                                    
+                                    upd_prod_id = (prod_id < upd_prod_id) ? upd_prod_id : prod_id;
                                 });
+                                $scope.get_product();
                             }
 
                             var query = "select local_p_id, product_name, stock_amount, price, price_currency, weight, " + 
                                         "weight_unit, condition, description, category_id, menu_id, min_order, insurance " + 
-                                        "from product where p_id=null";
+                                        "from product where p_id is null";
                             dbInv.each(query, function(err, row_prod){
                                 var var_images = new Array();
                                 var img_query  = "select file_name, description, stat_primary from product_pic where p_id_local='" + row_prod.local_p_id + "'";
@@ -80,55 +94,101 @@ app.controller('SyncController', function($scope, SyncFactory) {
                                         image.is_primary = 1;
                                     }
 
-                                    var_images.push(image);
-
-                                    formData = image_file : fs.createReadStream( image.file_path )
-                                               shop_id    : shop_id
-
-                                    nodeRequest.post {
-                                      url      : "http://192.168.6.195:8008/v1/products/image"
-                                      formData : formData
-                                    }, (err, httpResponse, body) ->
-                                    if err
-                                        console.error('upload failed:', err)
-                                    
-                                    console.log 'Upload successful!  Server responded with:', body
+                                    upload_gambar(image.file_path, shop_id, function(data){
+                                        console.log(data);
+                                        image.file_url = data.result.file_path;
+                                        var_images.push(image);
+                                    });
                                 });
 
-                                var json   = new Object();
-                                var data   = new Object();
-                                var attrib = new Object()
-                                data.type  = "products";
+                                var real_product = {
+                                    data : {
+                                        type : "products",
+                                        attributes:{
+                                            user_id         :parseInt(user_id),
+                                            name            :row_prod.product_name,
+                                            description     :row_prod.description,
+                                            shop_id         :parseInt(shop_id),
+                                            category_id     :row_prod.category_id,
+                                            price_currency  :row_prod.price_currency,
+                                            normal_price    :parseInt(row_prod.price),
+                                            add_to_etalase  :row_prod.add_to_etalase,
+                                            etalase_id      :row_prod.menu_id,
+                                            add_to_catalog  :0,
+                                            catalog_id      :0,
+                                            returnable      :0,
+                                            condition       :1,
+                                            must_inssurance :1,
+                                            min_order       :1,
+                                            weight :{
+                                                unit        :row_prod.weight_unit,
+                                                numeric     :parseInt(row_prod.weight)
+                                            },
+                                            wholesale:[
+                                            ]
+                                        }   
+                                    }
+                                }
+ 
+                                SyncFactory.post_product(real_product).success(function(res){
+                                    var stmt = dbInv.prepare("UPDATE product SET p_id="+res.data.id+" WHERE local_p_id='"+row_prod.local_p_id+ "'");
 
-                                attrib.user_id         = user_id;
-                                attrib.name            = row_prod.product_name;
-                                attrib.description     = row_prod.description;
-                                attrib.shop_id         = shop_id;
-                                attrib.category_id     = row_prod.category_id;
-                                attrib.price_currency  = row_prod.price_currency;
-                                attrib.add_to_etalase  = row_prod.add_to_etalase;
-                                attrib.etalase_id      = row_prod.menu_id;
-                                attrib.add_to_catalog  = 0;
-                                attrib.catalog_id      = 0;
-                                attrib.returnable      = 0;
-                                attrib.condition       = 1;
-                                attrib.must_inssurance = 1;
-                                attrib.min_order       = 1;
-                                attrib.weight.unit     = row_prod.weight_unit;
-                                attrib.weight.numeric  = row_prod.weight;
-                                attrib.wholesale       = new Array();
-                                attrib.images          = var_images;
-                                data.attributes        = attrib;
+                                    stmt.run();
+                                    stmt.finalize();
+                                    
+                                    upd_sync = (res.server_time < upd_sync) ? upd_sync : res.server_time;
+                                });
 
-                                json.data = data;
-                                var prod_id = SyncFactory.post_product(json);
+                                upd_prod_id = (row_prod.local_p_id < upd_prod_id) ? upd_prod_id : row_prod.local_p_id;
                             });
+
+                            // Update util product
+                            var stmt = dbInv.prepare("UPDATE util SET value="+upd_prod_id+" WHERE key='last_product_id'");
+
+                            stmt.run();
+                            stmt.finalize();
+
+                            // Update util product
+                            var stmt = dbInv.prepare("UPDATE util SET value= '"+upd_sync+"' WHERE key='last_sync_product'");
+
+                            stmt.run();
+                            stmt.finalize();                              
                         });
                     });
                 });
             }
         });
-        
+    };
+
+    $scope.get_product = function(){
+        // Get total count row
+        if ($scope.product) {
+            last_p_id = $scope.product.last_id;
+        }
+
+        $scope.product.list = new Array();
+
+        dbInv.each("select count(*) as count from product where stat_del = 0", function(err, row){
+            nrow = row.count;
+
+            if(nrow <= '20') {
+                dbInv.each("select product_name, price, product_status, stock_amount, local_p_id from product where stat_del = 0 order by local_p_id", function(err, row){
+                    $scope.product.list.push(row);
+                    last_p_id = row.local_p_id;
+                });
+            } else {
+                dbInv.each("select product_name, price, product_status, stock_amount, local_p_id from product where stat_del = 0 order by local_p_id limit 20", function(err, row){
+                    $scope.product.list.push(row);
+                    last_p_id = row.local_p_id;
+                });
+            }
+
+            $scope.product.edit_prod = '#/inventory/edit_produk/';
+            $scope.product.copy_prod = '#/inventory/tambah_produk/copy/';
+            $scope.product.row       = nrow;
+            $scope.product.last_id   = last_p_id;
+            row = 1;
+        });
     };
 });
 
@@ -176,6 +236,20 @@ function check_conn(fn){
             connect = 1
         }
         fn(connect);
+    });
+}
+
+function upload_gambar(path, shop_id, fn){
+    fs.stat(path, function(err, stats) {
+        restler.post("http://192.168.6.195:8008/v1/products/image", {
+            multipart: true,
+            data: {
+                "shop_id": shop_id,
+                "image_file": restler.file(path, null, stats.size, null, "image/jpeg")
+            }
+        }).on("complete", function(data) {
+            fn(data);
+        });
     });
 }
 
