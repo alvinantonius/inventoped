@@ -1,5 +1,12 @@
-<div class="cl-mcont" >
-    <div class="row">
+<div class="cl-mcont">
+    <div class="page-head">
+        <ol class="breadcrumb">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Inventory</a></li>
+          <li class="active">Manage Produk</li>
+        </ol>
+    </div>      
+    <div class="row m-prod-inv" ng-controller="ManageProductController" ng-scope>
         <div class="col-md-12">
             <div class="block-flat">
                 <div class="header">
@@ -25,57 +32,45 @@
 							</tr>
 						</thead>
 						<tbody class="no-border-y">
-							<tr class="odd gradeA">
-								<td>Kacamata O Splinter silver Frame Black Lens (Polarized)</td>
-								<td class="center"><input type="price" placeholder="Product Price" value="175.000" class="form-control text-right"></td>
-								<td class="center"><input type="stock" placeholder="Stock" value="24" class="form-control text-right"></td>
-								<td class="text-center" ><div class="switch switch-mini"><input type="checkbox" checked></div></td>
+							<tr class="odd gradeA" ng-repeat="prod in product.list">
+								<td ng-bind="prod.product_name"></td>
 								<td class="center">
-									<a class="label" href="edit-product.html"><button type="button" data-toggle="tooltip" data-original-title="Edit Produk" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</button></a>
-									<a class="label" href="edit-product.html"><button type="button" data-toggle="tooltip" data-original-title="Copy Produk" class="btn btn-primary btn-xs"><i class="fa fa-copy"></i> Copy</button></a>
-                                    <a class="label" href="edit-product.html"><button type="button" data-toggle="tooltip" data-original-title="Delete Produk" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</button></a>
+									<input type="price" placeholder="Product Price" value="{{prod.price}}" class="form-control text-right">
+								</td>
+								<td class="center">
+									<input type="stock" placeholder="Stock" value="{{prod.stock_amount}}" class="form-control text-right">
+								</td>
+								<td class="text-center">
+									<div class="switch switch-mini">
+										<input type="checkbox" ng-checked="{{prod.product_status}}">
+									</div>
+								</td>
+								<td class="center">
+									<a class="label" href="{{product.edit_prod + prod.local_p_id}}">
+										<button type="button" data-toggle="tooltip" data-original-title="Edit Produk" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</button>
+									</a>
+									<a class="label" href="{{product.copy_prod + prod.local_p_id}}">
+										<button type="button" data-toggle="tooltip" data-original-title="Copy Produk" class="btn btn-primary btn-xs"><i class="fa fa-copy"></i> Copy</button>
+									</a>
+                                	<button type="button" data-toggle="tooltip" data-original-title="Delete Produk" class="btn btn-danger btn-xs" ng-click="del_product(prod.local_p_id)"><i class="fa fa-times"></i> Delete</button>
 								</td>
 							</tr>
-							<tr class="odd gradeA">
-								<td>Kacamata O Splinter silver Frame Black Lens (Polarized)</td>
-								<td class="center"><input type="price" placeholder="Product Price" value="175.000" class="form-control text-right"></td>
-								<td class="center"><input type="stock" placeholder="Stock" value="24" class="form-control text-right"></td>
-								<td class="text-center"><div class="switch switch-mini"><input type="checkbox" checked></div></td>
-								<td class="center">
-									<a class="label" href="edit-product.html"><button type="button" data-toggle="tooltip" data-original-title="Edit Produk" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</button></a>
-                                    <a class="label" href="edit-product.html"><button type="button" data-toggle="tooltip" data-original-title="Copy Produk" class="btn btn-primary btn-xs"><i class="fa fa-copy"></i> Copy</button></a>
-                                    <a class="label" href="edit-product.html"><button type="button" data-toggle="tooltip" data-original-title="Delete Produk" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</button></a>
-								</td>
-							</tr>
-							<tr class="odd gradeA">
-								<td>Kacamata O Splinter silver Frame Black Lens (Polarized)</td>
-								<td class="center"><input type="price" placeholder="Product Price" value="175.000" class="form-control text-right"></td>
-								<td class="center"><input type="stock" placeholder="Stock" value="24" class="form-control text-right"></td>
-								<td class="text-center"><div class="switch switch-mini"><input type="checkbox" checked></div></td>
-								<td class="center">
-									<a class="label" href="edit-product.html"><button type="button" data-toggle="tooltip" data-original-title="Edit Produk" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</button></a>
-                                    <a class="label" href="edit-product.html"><button type="button" data-toggle="tooltip" data-original-title="Copy Produk" class="btn btn-primary btn-xs"><i class="fa fa-copy"></i> Copy</button></a>
-                                    <a class="label" href="edit-product.html"><button type="button" data-toggle="tooltip" data-original-title="Delete Produk" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</button></a>
-								</td>
-							</tr>
-							
 						</tbody>
-					</table>	
-						<div>
-							<ul class="pagination pagination-sm">
-							  <li class="disabled"><a href="#">&laquo;</a></li>
-							  <li class="active"><a href="#">1</a></li>
-							  <li><a href="#">2</a></li>
-							  <li><a href="#">3</a></li>
-							  <li><a href="#">4</a></li>
-							  <li><a href="#">5</a></li>
-							  <li><a href="#">&raquo;</a></li>
-							</ul>
-						</div>
+					</table>
+					<div ng-if="product.row > 20">
+						<ul class="pagination pagination-sm">
+							<li class="disabled"><a href="#">&laquo;</a></li>
+							<li class="active"><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">&raquo;</a></li>
+						</ul>
+					</div>
 				</div>
 				<br>
             </div>
-			
         </div>
     </div>
 </div>

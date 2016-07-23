@@ -45,8 +45,8 @@ var ProdManager = {
     stmt.run();
     stmt.finalize();
   },
-  RemoveProd: function(product){
- 	  var where = "local_p_id='"+product.local_p_id+"'";
+  RemoveProd: function(local_p_id){
+ 	  var where = "local_p_id='"+local_p_id+"'";
     var stmt  = dbInv.prepare("UPDATE product SET stat_del=1 WHERE "+where);
 
     stmt.run();
