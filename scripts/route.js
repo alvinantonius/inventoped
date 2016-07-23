@@ -1,11 +1,10 @@
-var app = angular.module("invtpd", ["ngRoute", "Controllers"]);
+var app = angular.module("invtpd", ["ngRoute", "Controllers", "AddProductController"]);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider.when('/', {
-        templateUrl:"views/home.html",
-        controller :"HomeController"
+        templateUrl:"views/inventory/manage-produk.html",
+        controller :"ManageProductController"
     })
-    
 
     .when('/inventory/tambah_produk', {
         templateUrl:"views/inventory/tambah-produk.html",
