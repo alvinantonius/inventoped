@@ -8,6 +8,7 @@ var app = angular.module('Controllers', [
 ]);
 
 
+
 $(document).ready(function() {
     
     // cek dulu udah login apa belum
