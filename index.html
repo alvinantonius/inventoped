@@ -40,9 +40,9 @@
     
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/jquery.cookie/jquery.cookie.js"></script>
-    <script src="assets/js/jquery.pushmenu/js/jPushMenu.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.cookie/jquery.cookie.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.pushmenu/js/jPushMenu.js"></script>
     <script type="text/javascript" src="assets/js/jquery.nanoscroller/jquery.nanoscroller.js"></script>
     <script type="text/javascript" src="assets/js/jquery.sparkline/jquery.sparkline.min.js"></script>
     <script type="text/javascript" src="assets/js/jquery.ui/jquery-ui.js" ></script>
@@ -100,25 +100,14 @@
             </div>
           </div>
           <ul class="cl-vnavigation">
-            <li><a href="#/"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
-            <li><a href="#"><i class="fa fa-cubes nav-icon"></i><span>Inventory</span></a>
-              <ul class="sub-menu">
-                <li><a href="#/inventory/tambah_produk">Tambah Produk</a></li>
-                <li><a href="#/inventory/manage_produk">Manage Produk</a></li>
+            <li class="parent open"><a href="#"><i class="fa fa-cubes nav-icon"></i><span>Inventory</span></a>
+              <ul class="sub-menu" style="display:block">
+                <li><a href="#/inventory/tambah_produk">Add Product</a></li>
+                <li><a href="#/inventory/manage_produk">Product List</a></li>
               </ul>
             </li>
-            <li><a href="#"><i class="fa fa-money nav-icon"></i><span>Transaksi</span></a>
-              <ul class="sub-menu">
-                <li  ><a href="/design/menu/tambah">Transaksi Baru</a></li>
-                <li  ><a href="/design/menu/kelola">Daftar Transaksi</a></li>
-              </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-cogs nav-icon"></i><span>Pengaturan</span></a>
-              <ul class="sub-menu">
-                <li  ><a href="/design/pengaturan/meja">Meja</a></li>
-                <li  ><a href="/design/pengaturan/akses">Hak Akses</a></li>
-              </ul>
-            </li>
+            <li><a href="#/notification"><i class="fa fa-globe nav-icon"></i><span>Notification</span></a></li>
+            <li><a href="#"><i class="fa fa-sign-out nav-icon"></i><span>Logout</span></a></li>
           </ul>
         </div>
       </div>
@@ -139,32 +128,12 @@
             <button data-placement="bottom" data-toggle="tooltip" data-original-title="Kelola produk di Tokopedia.com" type="button" class="btn btn-primary btn-flat btn-xs"><a href="http://tokopedia.com" style="color:#fff"><i class="fa fa-globe"></i> Tokopedia.com</a></button>
           </li> 
           <li class="dropdown profile_menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img alt="Avatar" src="assets/images/avatar6-2.jpg" /><span>Jane Smith</span> <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Profil</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Keluar</a></li>
-            </ul>
+            <a><i class="fa fa-user fa-fw fa-lg"></i> <span>Chocoglider</span></a>
           </li>
         </ul>           
         <ul class="nav navbar-nav not-nav">
           <li class="button dropdown">
-            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe"></i><span class="bubble">2</span></a>
-            <ul class="dropdown-menu">
-              <li>
-                <div class="nano nscroller">
-                  <div class="content">
-                    <ul>
-                      <li><a href="#"><i class="fa fa-cloud-upload info"></i><b>Daniel</b> is now following you <span class="date">2 minutes ago.</span></a></li>
-                      <li><a href="#"><i class="fa fa-male success"></i> <b>Michael</b> commented on your link <span class="date">15 minutes ago.</span></a></li>
-                      <li><a href="#"><i class="fa fa-bug warning"></i> <b>Mia</b> commented on post <span class="date">30 minutes ago.</span></a></li>
-                      <li><a href="#"><i class="fa fa-credit-card danger"></i> <b>Andrew</b> sent you a request <span class="date">1 hour ago.</span></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <ul class="foot"><li><a href="#">View all activity </a></li></ul>           
-              </li>
-            </ul>
+            <a href="#/notification"><i class="fa fa-globe"></i><span class="bubble">2</span></a>
           </li>
           <li class="button">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bolt text-info"></i><span class="bubble">Connected</span></a>
@@ -181,6 +150,17 @@
   </div> 
     
 </div>
+
+<script type="text/javascript"> 
+    $(document).ready(function(){
+      //initialize the javascript
+       $('.md-trigger').modalEffects();
+        $('input').iCheck({
+          checkboxClass: 'icheckbox_flat-green',
+          radioClass: 'iradio_flat-green'
+        });
+    });
+</script>
 
 </body>
 </html>

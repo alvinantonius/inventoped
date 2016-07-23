@@ -1,6 +1,6 @@
 
 var sqlite3 = require('sqlite3').verbose();
-var dbInv   = new sqlite3.Database('./inventoped.sqlite3');
+var dbInv   = new sqlite3.Database('./db/inventoped.sqlite3');
 
 var ProdManager = {
   CreateProd: function(product){
@@ -58,7 +58,7 @@ var UtilManager = {
   CreateUtil: function(util){
     var field  = "key, value";
     var values = "'"+util.key+"','"+util.value+"'";
-    var stmt   = dbInv.prepare("INSERT INTO product("+field+") VALUES ("+values+")");
+    var stmt   = dbInv.prepare("INSERT INTO util("+field+") VALUES ("+values+")");
 
     stmt.run();
     stmt.finalize();
@@ -66,7 +66,7 @@ var UtilManager = {
   UpdateUtil: function(util){
     var values = "value='"+util.value+"'";
     var where  = "key='"+util.key+"'";
-    var stmt   = dbInv.prepare("UPDATE product SET "+values+" WHERE "+where);
+    var stmt   = dbInv.prepare("UPDATE util SET "+values+" WHERE "+where);
 
     stmt.run();
     stmt.finalize();

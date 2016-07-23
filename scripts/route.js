@@ -20,6 +20,11 @@ app.config(function($routeProvider, $locationProvider) {
         controller :"EditProductController"
     })
     
+    .when('/notification', {
+        templateUrl:"views/notification.html",
+        controller :"NotifController"
+    })
+    
     .otherwise({redirectTo:'/'});
 
 });
