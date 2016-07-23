@@ -1,6 +1,6 @@
 
 var sqlite3 = require('sqlite3').verbose();
-var dbInv   = new sqlite3.Database('./inventoped.sqlite3');
+var dbInv   = new sqlite3.Database('./db/inventoped.sqlite3');
 
 var ProdManager = {
   CreateProd: function(product){
