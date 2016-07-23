@@ -1,5 +1,12 @@
 <div class="cl-mcont">
-    <div class="row m-prod-inv" ng-scope>
+    <div class="page-head">
+        <ol class="breadcrumb">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Inventory</a></li>
+          <li class="active">Manage Produk</li>
+        </ol>
+    </div>      
+    <div class="row m-prod-inv" ng-controller="ManageProductController" ng-scope>
         <div class="col-md-12">
             <div class="block-flat">
                 <div class="header">
@@ -34,7 +41,9 @@
 									<input type="stock" placeholder="Stock" value="{{prod.stock_amount}}" class="form-control text-right">
 								</td>
 								<td class="text-center">
-									<div class="switch switch-mini"><input type="checkbox" ng-checked="{{prod.product_status}}"></div>
+									<div class="switch switch-mini">
+										<input type="checkbox" ng-checked="{{prod.product_status}}">
+									</div>
 								</td>
 								<td class="center">
 									<a class="label" href="{{product.edit_prod + prod.local_p_id}}">
@@ -43,9 +52,7 @@
 									<a class="label" href="{{product.copy_prod + prod.local_p_id}}">
 										<button type="button" data-toggle="tooltip" data-original-title="Copy Produk" class="btn btn-primary btn-xs"><i class="fa fa-copy"></i> Copy</button>
 									</a>
-                                    <a class="label" href="#">
-                                    	<button type="button" data-toggle="tooltip" data-original-title="Delete Produk" class="btn btn-danger btn-xs" ng-click="del_product(prod.local_p_id)"><i class="fa fa-times"></i> Delete</button>
-                                    </a>
+                                	<button type="button" data-toggle="tooltip" data-original-title="Delete Produk" class="btn btn-danger btn-xs" ng-click="del_product(prod.local_p_id)"><i class="fa fa-times"></i> Delete</button>
 								</td>
 							</tr>
 						</tbody>

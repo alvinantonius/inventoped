@@ -1,5 +1,4 @@
 var app       = angular.module('ManageProductController', []);
-var row       = 0;
 var nrow      = 0;
 var last_p_id = 0;
 
@@ -17,9 +16,7 @@ app.controller('ManageProductController', function($scope) {
     $("[data-toggle='tooltip']").tooltip();
 
     setInterval(function(){ 
-    	if(row = 1) {
-	    	$scope.$apply();
-    	}
+    	$scope.$apply();
     }, 500);
 
     $scope.get_product = function(){
@@ -34,12 +31,12 @@ app.controller('ManageProductController', function($scope) {
 			nrow = row.count;
 
 			if(nrow <= '20') {
-				dbInv.each("select product_name, price, product_status, stock_amount, local_p_id from product order by local_p_id", function(err, row){
+				dbInv.each("select product_name, price, product_status, stock_amount, local_p_id from product where stat_del = 0 order by local_p_id", function(err, row){
 					$scope.product.list.push(row);
 					last_p_id = row.local_p_id;
 				});
 			} else {
-				dbInv.each("select product_name, price, product_status, stock_amount, local_p_id from product where local_p_id > " + last_p_id + "order by local_p_id limit 20", function(err, row){
+				dbInv.each("select product_name, price, product_status, stock_amount, local_p_id from product where stat_del = 0 and local_p_id > " + last_p_id + "order by local_p_id limit 20", function(err, row){
 					$scope.product.list.push(row);
 					last_p_id = row.local_p_id;
 				});
@@ -55,7 +52,7 @@ app.controller('ManageProductController', function($scope) {
 
     $scope.del_product = function(p_id){
     	ProdManager.RemoveProd(p_id);
-		row = 1;
+    	$scope.get_product();
     };
 
 	$scope.get_product();
