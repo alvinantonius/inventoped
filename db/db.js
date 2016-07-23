@@ -58,7 +58,7 @@ var UtilManager = {
   CreateUtil: function(util){
     var field  = "key, value";
     var values = "'"+util.key+"','"+util.value+"'";
-    var stmt   = dbInv.prepare("INSERT INTO product("+field+") VALUES ("+values+")");
+    var stmt   = dbInv.prepare("INSERT INTO util("+field+") VALUES ("+values+")");
 
     stmt.run();
     stmt.finalize();
@@ -66,7 +66,7 @@ var UtilManager = {
   UpdateUtil: function(util){
     var values = "value='"+util.value+"'";
     var where  = "key='"+util.key+"'";
-    var stmt   = dbInv.prepare("UPDATE product SET "+values+" WHERE "+where);
+    var stmt   = dbInv.prepare("UPDATE util SET "+values+" WHERE "+where);
 
     stmt.run();
     stmt.finalize();
@@ -75,7 +75,7 @@ var UtilManager = {
   	if (key == undefined) {
   		return dbInv.exec("select * from util");
   	} else {
-  		return dbInv.exec("select * from util where key='"+key+"'");
+  		return dbInv.get("select * from util where key='"+key+"'");
   	}
   }
 }
