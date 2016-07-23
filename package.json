@@ -1,33 +1,33 @@
 {
-  "devDependencies": {
-    "asar": "^0.11.0",
-    "chai": "^3.5.0",
-    "electron-mocha": "^2.0.0",
-    "electron-prebuilt": "^1.0.1",
-    "fs-jetpack": "^0.9.0",
-    "gulp": "^3.9.0",
-    "gulp-batch": "^1.0.5",
-    "gulp-less": "^3.0.3",
-    "gulp-plumber": "^1.1.0",
-    "gulp-util": "^3.0.6",
-    "gulp-watch": "^4.3.5",
-    "q": "^1.4.1",
-    "rollup": "^0.26.3",
-    "yargs": "^4.2.0"
+  "name": "electron-sqlite3",
+  "version": "1.0.0",
+  "description": "Example electron app with sqlite3 integration",
+  "repository": "https://github.com/bytheway/electron-sqlite3.git",
+  "main": "main.js",
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "sqlite3": "3.1.1"
   },
-  "optionalDependencies": {
-    "appdmg": "^0.3.2",
-    "rcedit": "^0.5.0"
+  "devDependencies": {
+    "electron-packager": "^5.2.1",
+    "electron-prebuilt": "^0.36.4"
+  },
+  "keywords": [
+    "electron",
+    "atom",
+    "sqlite3"
+  ],
+  "bugs": {
+    "url": "https://github.com/bytheway/electron-sqlite3/issues"
   },
   "scripts": {
-    "postinstall": "cd app && npm install && npm run rebuild-sqlite3-win",
-    "build": "gulp build",
-    "release": "gulp release --env=production",
-    "start": "gulp start",
-    "pretest": "gulp build --env=test",
-    "test": "electron-mocha build --renderer",
-    "install-native": "node ./tasks/install_native_module",
-    "rebuild-sqlite3": "cd app/node_modules/sqlite3 && npm run prepublish && node-gyp configure --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-darwin-x64 && node-gyp rebuild --target=0.36.4 --arch=x64 --target_platform=darwin --dist-url=https://atom.io/download/atom-shell --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-darwin-x64",
-    "rebuild-sqlite3-win": "cd app/node_modules/sqlite3 && npm run prepublish && node-gyp configure --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-win32-x64 && node-gyp node-gyp rebuild --target=0.36.0 --arch=x64 --target_platform=win32 --dist-url=https://atom.io/download/atom-shell --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-win32-x64"
-  }
+    "start": "electron .",
+    "build": "electron-packager . electron-sqlite3 --out=dist --ignore=dist --prune --asar --all --version=0.36.4",
+    "postinstall": "npm run rebuild-sqlite3",
+    "rebuild-sqlite3": "cd node_modules/sqlite3 && npm run prepublish && node-gyp configure --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-darwin-x64 && node-gyp rebuild --target=0.36.4 --arch=x64 --target_platform=darwin --dist-url=https://atom.io/download/atom-shell --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-darwin-x64",
+    "rebuild-sqlite3-win": "cd node_modules/sqlite3 && npm run prepublish && node-gyp configure --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-win32-x64 && node-gyp node-gyp rebuild --target=0.36.0 --arch=x64 --target_platform=win32 --dist-url=https://atom.io/download/atom-shell --module_name=node_sqlite3 --module_path=../lib/binding/node-v47-win32-x64"
+  },
+  "author": "Ben Bytheway",
+  "contributors": [],
+  "license": "MIT"
 }

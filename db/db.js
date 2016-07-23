@@ -1,6 +1,6 @@
-var fs    = require('fs');
-var files = fs.readFileSync('app/db/inventoped.sqlite3');
-var dbInv = new SQL.Database(files);
+
+var sqlite3 = require('sqlite3').verbose();
+var dbInv   = new sqlite3.Database('./inventoped.sqlite3');
 
 var ProdManager = {
   CreateProd: function(product){
@@ -21,7 +21,10 @@ var ProdManager = {
   		product.min_order+"','"+product.insurance+"','"+product.returnable+"','"+
   		product.synced+"','"+product.last_sync+"','"+upd_time+"'";
 
-    dbInv.exec("INSERT INTO product("+field+") VALUES ("+values+")");
+    var stmt = dbInv.prepare("INSERT INTO product("+field+") VALUES ("+values+")");
+
+    stmt.run();
+    stmt.finalize();
   },
   UpdateProd: function(product){
   	var upd_time = new Date();
@@ -37,12 +40,17 @@ var ProdManager = {
   		"', last_sync='"+product.last_sync+"', update_time='"+upd_time+"'";
 
   	var where = "local_p_id='"+product.local_p_id+"'";
+    var stmt  = dbInv.prepare("UPDATE product SET "+values+" WHERE "+where);
 
-    dbInv.exec("UPDATE product SET "+values+" WHERE "+where);
+    stmt.run();
+    stmt.finalize();
   },
   RemoveProd: function(product){
- 	var where = "local_p_id='"+product.local_p_id+"'";
-    dbInv.exec("UPDATE product SET stat_del=1 WHERE "+where);
+ 	  var where = "local_p_id='"+product.local_p_id+"'";
+    var stmt  = dbInv.prepare("UPDATE product SET stat_del=1 WHERE "+where);
+
+    stmt.run();
+    stmt.finalize();
   }
 }
 
@@ -50,14 +58,18 @@ var UtilManager = {
   CreateUtil: function(util){
     var field  = "key, value";
     var values = "'"+util.key+"','"+util.value+"'";
+    var stmt   = dbInv.prepare("INSERT INTO product("+field+") VALUES ("+values+")");
 
-    dbInv.exec("INSERT INTO product("+field+") VALUES ("+values+")");
+    stmt.run();
+    stmt.finalize();
   },
   UpdateUtil: function(util){
     var values = "value='"+util.value+"'";
     var where  = "key='"+util.key+"'";
+    var stmt   = dbInv.prepare("UPDATE product SET "+values+" WHERE "+where);
 
-    dbInv.exec("UPDATE product SET "+values+" WHERE "+where);
+    stmt.run();
+    stmt.finalize();
   },
   GetUtil : function(key){
   	if (key == undefined) {
@@ -86,6 +98,10 @@ var DeptManager = {
   		dept.long_description+"','"+dept.title+"'";
 
     dbInv.exec("INSERT INTO department("+field+") VALUES ("+values+")");
+    var stmt   = dbInv.prepare("UPDATE product SET "+values+" WHERE "+where);
+
+    stmt.run();
+    stmt.finalize();
   },
   UpdateDept: function(dept){
   	var upd_time = new Date();
@@ -97,12 +113,17 @@ var DeptManager = {
   		"', long_description='"+dept.long_description+"', title='"+dept.title+"'";
 
   	var where = "d_id='"+dept.d_id+"'";
+    var stmt  = dbInv.prepare("UPDATE department SET "+values+" WHERE "+where);
 
-    dbInv.exec("UPDATE department SET "+values+" WHERE "+where);
+    stmt.run();
+    stmt.finalize();
   },
   RemoveDept: function(dept){
-	var where = "d_id='"+dept.d_id+"'";
-    dbInv.exec("UPDATE department SET stat_del=1 WHERE "+where);
+	  var where = "d_id='"+dept.d_id+"'";
+    var stmt  = dbInv.prepare("UPDATE department SET stat_del=1 WHERE "+where);
+
+    stmt.run();
+    stmt.finalize();
   }
 }
 
@@ -112,19 +133,26 @@ var PicManager = {
   	var field    = "p_id_local, description, file_name, status, stat_primary, update_time";
   	var values   = "'"+picture.p_id_local+"','"+picture.description+"','"+picture.file_name+
                    "','"+picture.status+"','"+picture.stat_primary+"','"+upd_time+"'";
+    var stmt     = dbInv.prepare("INSERT INTO product_pic("+field+") VALUES ("+values+")");
 
-    dbInv.exec("INSERT INTO product_pic("+field+") VALUES ("+values+")");
+    stmt.run();
+    stmt.finalize();
   },
   UpdatePic: function(picture){
   	var upd_time = new Date();
   	var values   = "description='"+picture.description+"', file_name='"+picture.file_name+"', "+
                    "status='"+picture.status+"', stat_primary='"+picture.stat_primary+"', update_time='"+upd_time+"'";
   	var where    = "product_pic_id='"+picture.product_pic_id+"'";
+    var stmt     = dbInv.prepare("UPDATE product_pic SET "+values+" WHERE "+where);
 
-    dbInv.exec("UPDATE product_pic SET "+values+" WHERE "+where);
+    stmt.run();
+    stmt.finalize();
   },
   RemovePic: function(picture){
- 	var where = "product_pic_id='"+picture.product_pic_id+"'";
-    dbInv.exec("UPDATE product_pic SET status=2 WHERE "+where);
+ 	  var where = "product_pic_id='"+picture.product_pic_id+"'";
+    var stmt  = dbInv.prepare("UPDATE product_pic SET status=2 WHERE "+where);
+
+    stmt.run();
+    stmt.finalize();
   }
 }
