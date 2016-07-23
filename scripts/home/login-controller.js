@@ -1,16 +1,16 @@
-var app = angular.module('LoginApp', []);
+var app = angular.module('LoginApp', ['SyncData']);
 
-app.controller('LoginController', ['$scope', 'LoginFactory', function($scope, LoginFactory){
+app.controller('LoginController', ['$scope', 'SyncFactory', function($scope, SyncFactory){
     $scope.email;
     $scope.password;
     
     $scope.doLogin = function(){
-        LoginFactory.get_shop_id($scope.email).success(function(data, status){
+        SyncFactory.get_shop_id($scope.email).success(function(data, status){
             if(data.data.shop_id){
                 console.log(data.data);
                 var shop_id = data.data.shop_id;
                 var user_id = data.data.user_id;
-                LoginFactory.get_shop_info(data.data.shop_id).success(function(data, status){
+                SyncFactory.get_shop_info(data.data.shop_id).success(function(data, status){
                    
                    var util_shop_id =  {
                     key : "shop_id",
@@ -40,23 +40,6 @@ app.controller('LoginController', ['$scope', 'LoginFactory', function($scope, Lo
                 
             }
         });
-    }
-}]);
-
-app.factory('LoginFactory', ['$http', function($http){
-    var server_products = "http://192.168.6.195:8008";
-    var server_tome     = "http://192.168.6.195:9000";
-    return {
-        get_shop_id: function(email){
-            var parameter = JSON.stringify({user_email:email});
-            dat = $http.post(server_products+"/v1/login", parameter)
-            return dat;
-        },
-        
-        get_shop_info : function(shop_id){
-            dat = $http.get(server_tome+"/v1/shop?shop_id="+shop_id);
-            return dat;
-        }
     }
 }]);
 
