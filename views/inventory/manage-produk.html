@@ -1,11 +1,11 @@
 <div class="cl-mcont">
-    <div class="page-head">
+<!--     <div class="page-head">
         <ol class="breadcrumb">
           <li><a href="#">Home</a></li>
           <li><a href="#">Inventory</a></li>
           <li class="active">Manage Produk</li>
         </ol>
-    </div>      
+    </div>     -->  
     <div class="row m-prod-inv" ng-controller="ManageProductController" ng-scope>
         <div class="col-md-12">
             <div class="block-flat">
@@ -16,9 +16,9 @@
 					<a href="#/inventory/tambah_produk"><button data-popover="popover" type="button" class="btn btn-success btn-xs" data-original-title="Add a new product" data-content="Tambahkan produk yang akan kamu jual." data-placement="bottom" data-trigger="hover"><i class="fa fa-plus-circle"></i> New Product</button></a>        
                     <a href="file/download-product.xls"><button data-popover="popover" type="button" class="btn btn-warning btn-xs" data-original-title="Download daftar produk" data-content="Print file excelnya dan cek stok produkmu. Pastikan semua sudah sesuai jumlahnya." data-placement="bottom" data-trigger="hover"><i class="fa fa-cloud-download"></i> Download</button></a>                       
 				</div>
-				<div class="cl col-sm-3 no-padding">
+<!-- 				<div class="cl col-sm-3 no-padding">
 					<input type="text" class="form-control search" placeholder="Search product" />
-				</div>
+				</div> -->
 				<br><br>
 				<div class="content">
 					<table class="border hover">
@@ -49,9 +49,9 @@
 									<a class="label" href="{{product.edit_prod + prod.local_p_id}}">
 										<button type="button" data-toggle="tooltip" data-original-title="Edit Produk" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</button>
 									</a>
-									<a class="label" href="{{product.copy_prod + prod.local_p_id}}">
+<!-- 									<a class="label" href="{{product.copy_prod + prod.local_p_id}}">
 										<button type="button" data-toggle="tooltip" data-original-title="Copy Produk" class="btn btn-primary btn-xs"><i class="fa fa-copy"></i> Copy</button>
-									</a>
+									</a> -->
                                 	<button type="button" data-toggle="tooltip" data-original-title="Delete Produk" class="btn btn-danger btn-xs" ng-click="del_product(prod.local_p_id)"><i class="fa fa-times"></i> Delete</button>
 								</td>
 							</tr>

@@ -24,6 +24,13 @@ app.controller('SyncController', function($scope, SyncFactory) {
     $scope.product = new Object();
 
     setInterval(function(){ 
+        check_conn(function(status){
+            $scope.connected = (status == 1 ? 'Connected' : 'Disonnected');
+            $scope.status    = status;
+        });
+    }, 1);
+
+    setInterval(function(){ 
         $scope.$apply();
     }, 500);
 
