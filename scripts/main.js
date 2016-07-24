@@ -28,11 +28,8 @@ app.controller('SyncController', function($scope, SyncFactory) {
             $scope.connected = (status == 1 ? 'Connected' : 'Disonnected');
             $scope.status    = status;
         });
-    }, 1);
-
-    setInterval(function(){ 
         $scope.$apply();
-    }, 500);
+    }, 1000);
 
     $scope.sync_product = function(){
         dbInv.get("select value from util where key='shop_id'", function(err, row_util){

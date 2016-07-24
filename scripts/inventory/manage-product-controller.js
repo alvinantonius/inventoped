@@ -54,6 +54,13 @@ app.controller('ManageProductController', function($scope) {
     	ProdManager.RemoveProd(p_id);
     	$scope.get_product();
     };
+    
+    $scope.export_data = function(){
+        var blob = new Blob([document.getElementById('exportable').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Report.xls");
+    }
 
 	$scope.get_product();
 });

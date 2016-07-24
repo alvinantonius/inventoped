@@ -14,20 +14,21 @@
                 </div>
                 <div class="cl col-md-9">    
 					<a href="#/inventory/tambah_produk"><button data-popover="popover" type="button" class="btn btn-success btn-xs" data-original-title="Add a new product" data-content="Tambahkan produk yang akan kamu jual." data-placement="bottom" data-trigger="hover"><i class="fa fa-plus-circle"></i> New Product</button></a>        
-                    <a href="file/download-product.xls"><button data-popover="popover" type="button" class="btn btn-warning btn-xs" data-original-title="Download daftar produk" data-content="Print file excelnya dan cek stok produkmu. Pastikan semua sudah sesuai jumlahnya." data-placement="bottom" data-trigger="hover"><i class="fa fa-cloud-download"></i> Download</button></a>                       
+                    
 				</div>
 <!-- 				<div class="cl col-sm-3 no-padding">
 					<input type="text" class="form-control search" placeholder="Search product" />
 				</div> -->
 				<br><br>
 				<div class="content">
+                    <div id="exportable">
 					<table class="border hover">
 						<thead>
 							<tr>
 								<th class="text-center" width="250px"><b>Product Name</b></th>
 								<th class="text-center" width="100px"><b>Price</b></th>
 								<th class="text-center" width="80px"><b>Stock</b></th>
-								<th class="text-center" width="80px"><b>Status</b></th>
+								<th class="text-center" width="80px"><b>Available?</b></th>
 								<th class="text-center" width="160px"><b>Action</b></th>
 							</tr>
 						</thead>
@@ -57,6 +58,7 @@
 							</tr>
 						</tbody>
 					</table>
+                    </div>
 					<div ng-if="product.row > 20">
 						<ul class="pagination pagination-sm">
 							<li class="disabled"><a href="#">&laquo;</a></li>
