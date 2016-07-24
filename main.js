@@ -23,7 +23,7 @@ app.on('ready', function() {
   mainWindow = new BrowserWindow({width: 1200, height: 600});
 
   // Open the devtools.
-  mainWindow.openDevTools();
+  // mainWindow.openDevTools();
 
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/index.html');
