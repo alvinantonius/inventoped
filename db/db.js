@@ -19,7 +19,7 @@ var ProdManager = {
   		product.weight+"','"+product.weight_unit+"','"+product.condition+"','"+
   		product.description+"','"+product.category_id+"','"+product.menu_id+"','"+
   		product.min_order+"','"+product.insurance+"','"+product.returnable+"','"+
-  		product.synced+"','"+product.last_sync+"','"+product.stat_del+"','"+upd_time+"'";
+  		product.synced+"','"+product.last_sync+"','0','"+upd_time+"'";
 
     var stmt = dbInv.prepare("INSERT INTO product("+field+") VALUES ("+values+")");
 

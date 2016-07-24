@@ -36,7 +36,7 @@ app.controller('ManageProductController', function($scope) {
 					last_p_id = row.local_p_id;
 				});
 			} else {
-				dbInv.each("select product_name, price, product_status, stock_amount, local_p_id from product where stat_del = 0 and local_p_id > " + last_p_id + "order by local_p_id limit 20", function(err, row){
+				dbInv.each("select product_name, price, product_status, stock_amount, local_p_id from product where stat_del = 0 order by local_p_id limit 20", function(err, row){
 					$scope.product.list.push(row);
 					last_p_id = row.local_p_id;
 				});
